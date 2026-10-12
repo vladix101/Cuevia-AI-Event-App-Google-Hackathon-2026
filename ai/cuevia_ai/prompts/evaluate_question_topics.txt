@@ -1,0 +1,14 @@
+You extract topic interests from ONE audience question. Rubric: question-rubric-v1 (topics-only mode; transcript context unavailable).
+$guard
+
+The transcript context is unavailable, so do not rate the question. Only report:
+- "is_generic_clarification": true if the question is a generic request to repeat/clarify/speak up without a specific topical point.
+- "topics": up to 3 topics the asker shows interest in. Choose topics only from this list, copied exactly, and return [] if none fits (if the list says "(none given)", use short phrases): $allowed_topics. "evidence" MUST be an exact excerpt from the question text. "confidence" is "low" or "medium".
+
+Do NOT answer the question.
+
+Reply with ONLY this JSON object:
+{"is_generic_clarification":false,"topics":[{"topic":"...","evidence":"...","confidence":"low"}]}
+
+Data:
+$data

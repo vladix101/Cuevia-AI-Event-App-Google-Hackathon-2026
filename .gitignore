@@ -1,0 +1,35 @@
+# Secrets / credentials — never commit
+.env
+.env.*
+!.env.example
+*service-account*.json
+*-adminsdk-*.json
+credentials*.json
+
+# Private user data
+*.pdf
+*.docx
+*.webm
+*.wav
+*.ogg
+*.mp3
+*.m4a
+uploads/
+recordings/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Node / frontend
+node_modules/
+dist/
+
+# Firebase
+.firebase/
+*-debug.log
+firebase-export-*/
+backend/demo-password.txt

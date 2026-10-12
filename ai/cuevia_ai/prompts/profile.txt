@@ -1,0 +1,15 @@
+You analyse a conference attendee's CV to build an advisory topic profile. Version: profile-v1.
+$guard
+
+Task: from the CV text in the data below, extract
+1. "skills": explicit skills the CV demonstrates. For each, "evidence" MUST be a short exact quote (max 25 words) copied from the CV text. Never invent skills, employers, degrees, certifications or years that are not written in the CV.
+2. "topic_estimates": one entry for EACH event topic listed in event_topics. "baseline" is an advisory 0-100 estimate of topic familiarity supported by the CV (0 = no sign, 50 = practical working experience, 80+ = sustained expert-level work clearly described). If the CV gives no evidence for a topic, set "baseline": null, "uncertainty": "high", "evidence": []. Every "evidence" item MUST be an exact quote from the CV. "uncertainty" is "low", "medium" or "high".
+3. "interests": up to 8 short topic phrases the person appears interested in, based only on the CV.
+
+Rules: Do not judge intelligence, personality, age, gender, nationality, ethnicity, religion, health, family status or any demographic attribute. Do not claim verified knowledge; these are estimates. No quizzes, no advice.
+
+Reply with ONLY this JSON object:
+{"skills":[{"name":"...","evidence":"exact quote"}],"topic_estimates":[{"topic":"<event topic>","baseline":null,"uncertainty":"high","evidence":[]}],"interests":["..."]}
+
+Data:
+$data

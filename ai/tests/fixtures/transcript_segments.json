@@ -1,0 +1,11 @@
+{
+  "_note": "SYNTHETIC fixture for tests/smoke only. Not real talk data. Segment start_ms/end_ms are milliseconds relative to the recording.",
+  "segments": [
+    {"id": "seg-001", "sequence": 0, "start_ms": 0, "end_ms": 15000, "text": "Dobro veče svima. Danas pričamo o vektorskim bazama podataka i kako ih koristimo za pretragu dokumenata.", "status": "ready"},
+    {"id": "seg-002", "sequence": 1, "start_ms": 15000, "end_ms": 30000, "text": "Svaki dokument pretvaramo u embedding, odnosno vektor brojeva koji opisuje njegovo značenje.", "status": "ready"},
+    {"id": "seg-003", "sequence": 2, "start_ms": 30000, "end_ms": 45000, "text": "", "status": "gap"},
+    {"id": "seg-004", "sequence": 3, "start_ms": 45000, "end_ms": 60000, "text": "Za brzu pretragu koristimo približnu pretragu najbližih suseda, na primer HNSW indeks, koji menja malo tačnosti za mnogo brzine.", "status": "ready"},
+    {"id": "seg-005", "sequence": 4, "start_ms": 60000, "end_ms": 75000, "text": "Parametar ef_search određuje koliko kandidata pregledamo. Veći ef_search znači bolji recall ali veću latenciju.", "status": "ready"},
+    {"id": "seg-006", "sequence": 5, "start_ms": 75000, "end_ms": 90000, "text": "Kada se dokumenti često ažuriraju, indeks treba periodično ponovo graditi ili koristiti segmentirane indekse.", "status": "ready"}
+  ]
+}

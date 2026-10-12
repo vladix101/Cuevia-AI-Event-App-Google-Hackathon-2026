@@ -1,0 +1,21 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "talks",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "event_id", "order": "ASCENDING" },
+        { "fieldPath": "speaker_uids", "arrayConfig": "CONTAINS" }
+      ]
+    },
+    {
+      "collectionGroup": "recipients",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "event_id", "order": "ASCENDING" },
+        { "fieldPath": "member_uids", "arrayConfig": "CONTAINS" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

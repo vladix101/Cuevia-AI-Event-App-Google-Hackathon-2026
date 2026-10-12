@@ -1,0 +1,18 @@
+# ai/ local files - never commit secrets, audio, CVs or virtualenvs
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+smoke-report*.json
+*.wav
+*.mp3
+*.webm
+*.ogg
+*.m4a
+*.pdf
+*.docx
+*service-account*.json

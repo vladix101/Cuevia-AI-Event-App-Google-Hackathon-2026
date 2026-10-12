@@ -1,0 +1,15 @@
+{
+  "_note": "SYNTHETIC opportunity/profile evidence for tests/smoke only.",
+  "opportunity": {"id": "opp-1", "title": "Search Platform Engineer", "topics": ["Vector databases", "Search latency"], "required_skills": ["Python", "pgvector", "Rust"]},
+  "profile_evidence": {
+    "skills": [
+      {"name": "pgvector", "evidence": "semantičku pretragu nad 2 miliona dokumenata koristeći PostgreSQL pgvector i HNSW indekse"},
+      {"name": "Python", "evidence": "junior Python developer"}
+    ],
+    "interests": ["Vector databases", "Search latency"]
+  },
+  "questions": [
+    {"text": "Kako HNSW indeks podnosi česta brisanja dokumenata?", "topics": ["Vector databases"]},
+    {"text": "Gde je parking za posetioce?", "topics": []}
+  ]
+}

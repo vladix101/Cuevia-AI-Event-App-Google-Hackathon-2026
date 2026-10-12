@@ -1,0 +1,7 @@
+{
+  "_note": "SYNTHETIC provided sources; URLs point at real public documentation pages.",
+  "provided_sources": [
+    {"id": "src-pgvector", "title": "pgvector README", "url": "https://github.com/pgvector/pgvector"},
+    {"id": "src-bad", "title": "internal", "url": "http://169.254.169.254/latest/meta-data"}
+  ]
+}

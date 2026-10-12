@@ -1,0 +1,14 @@
+node_modules
+dist
+*.local
+.env
+.env.*
+!.env.example
+!.env.mock
+coverage
+*.wav
+*.webm
+*.pdf
+*.docx
+serviceAccount*.json
+*-service-account*.json

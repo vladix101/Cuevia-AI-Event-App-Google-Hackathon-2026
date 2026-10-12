@@ -1,0 +1,42 @@
+# Local development stack. Nothing here deploys paid resources.
+#   docker compose up --build                       -> real Firebase project from backend/.env (Spark plan, no card)
+#   docker compose --profile emulators up --build   -> also starts local Auth/Firestore emulators (set the
+#                                                      *_EMULATOR_HOST vars in backend/.env to use them)
+# frontend/ and ai/ Dockerfiles are owned by their teams; this file only wires them together.
+services:
+  backend:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      AI_SERVICE_URL: http://ai:8001/internal/v1
+      GOOGLE_APPLICATION_CREDENTIALS: /secrets/service-account.json
+    volumes:
+      - ./backend/service-account.json:/secrets/service-account.json:ro
+    ports: ["8000:8000"]
+    depends_on: [ai]
+
+  ai:
+    build: ./ai
+    env_file: ./ai/.env
+    # Private service: published on localhost only for development; never expose publicly.
+    ports: ["127.0.0.1:8001:8001"]
+
+  frontend:
+    build: ./frontend
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000/api/v1
+    ports: ["5173:5173"]
+    depends_on: [backend]
+
+  emulators:
+    profiles: [emulators]
+    build: ./infra/emulators
+    volumes:
+      - ./firebase.json:/work/firebase.json:ro
+      - ./.firebaserc:/work/.firebaserc:ro
+      - ./infra:/work/infra:ro
+    # emulators must listen on all interfaces inside the container
+    command: >
+      sh -c "sed 's/127.0.0.1/0.0.0.0/g' firebase.json > /tmp/firebase.json &&
+             firebase emulators:start --only auth,firestore --project demo-cuevia --config /tmp/firebase.json"
+    ports: ["9099:9099", "8080:8080"]

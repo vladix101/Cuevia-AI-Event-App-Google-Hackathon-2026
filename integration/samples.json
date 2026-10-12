@@ -1,0 +1,16 @@
+{
+  "public": {
+    "Segment": {"id": "rec1-0", "sequence": 0, "start_ms": 0, "end_ms": 5000, "text": "Danas o transformerima.", "status": "ready"},
+    "ProfilePublic": {"user_id": "u1", "cv_status": "missing", "expertise_status": "N/A", "interests": [], "eligible_for_top5": false},
+    "QuestionPublic": {"id": "q1", "talk_id": "t1", "text": "Kako?", "submitted_at": "2026-10-10T12:00:00.000Z", "read_status": "unread"},
+    "CatchUp": {"cue": "Transformeri", "summary": "Kratak rezime.", "source_segment_ids": ["rec1-0"], "start_ms": 0, "end_ms": 60000},
+    "Explanation": {"explanation": "Pojam.", "example": "Primer.", "sources": [{"id": "s1", "title": "T", "url": "https://example.org"}], "retrieval_mode": "web"},
+    "SegmentPage": {"items": [], "next_after_sequence": -1, "processing_lag_ms": 0},
+    "QuestionCreated": {"question": {"id": "q1", "talk_id": "t1", "text": "Kako?", "submitted_at": "2026-10-10T12:00:00.000Z", "read_status": "unread"}, "quota": {"used": 1, "limit": 3, "remaining": 2}}
+  },
+  "private": {
+    "ProfileResult": {"skills": [{"name": "Python", "evidence": "5 godina"}], "topic_estimates": [{"topic": "ML", "baseline": 60, "uncertainty": "medium", "evidence": ["projekat"]}, {"topic": "Cloud", "baseline": null, "uncertainty": "high", "evidence": []}], "interests": ["ML"], "model_id": "gemma"},
+    "AIQuestionEvaluation": {"relevance": 8, "expertise": 6, "depth": 5, "topics": [{"topic": "ML", "evidence": "pitanje", "confidence": "high"}], "rationale": {"relevance": "r", "expertise": "e", "depth": "d"}, "source_segment_ids": ["rec1-0"], "context_status": "sufficient", "is_generic_clarification": false, "model_id": "gemma", "rubric_version": "v1"},
+    "MatchResult": {"reasons": ["Iskustvo sa ML"], "missing_requirements": [], "supported_question_indices": [0], "model_id": "gemma"}
+  }
+}
