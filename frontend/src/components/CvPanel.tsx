@@ -23,13 +23,13 @@ export function ProfileStatus({ profile }: { profile: ProfilePublic }) {
   return (
     <dl className="grid gap-2 text-sm sm:grid-cols-3">
       <div>
-        <dt className="text-slate-600">CV</dt>
+        <dt className="text-mute">CV</dt>
         <dd>
           <Badge tone={cv.tone}>{cv.text}</Badge>
         </dd>
       </div>
       <div>
-        <dt className="text-slate-600">Stručnost</dt>
+        <dt className="text-mute">Stručnost</dt>
         <dd>
           {profile.expertise_status === 'N/A' ? (
             <Badge>N/A — nema obrađenog CV-a</Badge>
@@ -39,7 +39,7 @@ export function ProfileStatus({ profile }: { profile: ProfilePublic }) {
         </dd>
       </div>
       <div>
-        <dt className="text-slate-600">Preporuke sponzorima</dt>
+        <dt className="text-mute">Preporuke sponzorima</dt>
         <dd>
           {profile.eligible_for_top5 ? (
             <Badge tone="green">Možete biti predloženi (uz vašu saglasnost)</Badge>
@@ -87,7 +87,7 @@ export function CvPanel({ eventId, profile }: { eventId: string; profile: Profil
     <div className="space-y-3">
       <ProfileStatus profile={profile} />
       {busy && (
-        <p role="status" className="text-sm text-slate-700">
+        <p role="status" className="text-sm text-mute">
           {upload.isPending ? 'Otpremanje…' : 'CV se obrađuje. Možete nastaviti da koristite aplikaciju.'}
         </p>
       )}
@@ -109,7 +109,7 @@ export function CvPanel({ eventId, profile }: { eventId: string; profile: Profil
         />
         <label
           htmlFor={inputId}
-          className={`inline-flex min-h-11 cursor-pointer items-center rounded-lg px-4 font-medium focus-within:outline ${busy ? 'cursor-not-allowed bg-slate-300 text-slate-600' : 'bg-brand-600 text-white hover:bg-brand-700'}`}
+          className={`inline-flex min-h-11 cursor-pointer items-center rounded-lg px-4 font-medium focus-within:outline ${busy ? 'cursor-not-allowed bg-line text-mute' : 'bg-spot text-stage hover:bg-spot-hot'}`}
           tabIndex={busy ? -1 : 0}
           onKeyDown={(e) => {
             if (!busy && (e.key === 'Enter' || e.key === ' ')) {
@@ -128,12 +128,12 @@ export function CvPanel({ eventId, profile }: { eventId: string; profile: Profil
           </Button>
         )}
       </div>
-      <p className="text-xs text-slate-600">
+      <p className="text-xs text-mute">
         PDF, DOCX ili TXT, do 10 MB. Procena iz CV-a je savetodavna i ne predstavlja proveru znanja niti odluku o zapošljavanju.
         Sponzori vide CV samo ako im to izričito dozvolite.
       </p>
       {localError && (
-        <p role="alert" className="text-sm text-red-700">
+        <p role="alert" className="text-sm text-alarm">
           {localError}
         </p>
       )}

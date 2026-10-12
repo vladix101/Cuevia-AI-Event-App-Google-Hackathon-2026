@@ -53,15 +53,15 @@ function Interests({ eventId, profile }: { eventId: string; profile: ProfilePubl
 
   return (
     <div className="space-y-3">
-      <p className="text-sm text-slate-700">
+      <p className="text-sm text-mute">
         Teme izvedene iz vašeg CV-a i pitanja, plus teme koje sami unesete. Ne prikazujemo ocene niti rang.
       </p>
       {profile.interests.length === 0 && <EmptyState>Još nema interesovanja.</EmptyState>}
       {derived.length > 0 && (
         <ul className="flex flex-wrap gap-2" aria-label="Izvedena interesovanja">
           {derived.map((i) => (
-            <li key={`${i.source}:${i.topic}`} className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-sm">
-              {i.topic} <span className="text-xs text-slate-600">· {SOURCE_LABEL[i.source]}</span>
+            <li key={`${i.source}:${i.topic}`} className="rounded-full border border-line bg-raise px-3 py-1 text-sm">
+              {i.topic} <span className="text-xs text-mute">· {SOURCE_LABEL[i.source]}</span>
             </li>
           ))}
         </ul>
@@ -69,11 +69,11 @@ function Interests({ eventId, profile }: { eventId: string; profile: ProfilePubl
       {declared.length > 0 && (
         <ul className="flex flex-wrap gap-2" aria-label="Vaša interesovanja">
           {declared.map((t) => (
-            <li key={t} className="inline-flex items-center gap-1 rounded-full bg-brand-50 py-1 pr-1 pl-3 text-sm text-brand-900">
+            <li key={t} className="inline-flex items-center gap-1 rounded-full bg-spot/10 py-1 pr-1 pl-3 text-sm text-spot">
               {t}
               <button
                 type="button"
-                className="rounded-full px-2 hover:bg-brand-100"
+                className="rounded-full px-2 hover:bg-spot/20"
                 aria-label={`Ukloni interesovanje ${t}`}
                 disabled={save.isPending}
                 onClick={() => save.mutate(declared.filter((d) => d !== t))}
@@ -110,7 +110,7 @@ function ConsentPanel({ eventId }: { eventId: string }) {
 
   return (
     <div className="space-y-3">
-      <p className="text-sm text-slate-700">
+      <p className="text-sm text-mute">
         Svaki sponzor ili grupa vidi vaš CV i vaša pitanja samo ako im to ovde izričito dozvolite. Saglasnost možete promeniti u bilo kom
         trenutku; ljudi, ne sistem, odlučuju koga kontaktiraju.
       </p>
@@ -143,7 +143,7 @@ function ConsentRow({ eventId, recipientId, opportunities }: { eventId: string; 
   const base = `consent-${recipientId}`
 
   return (
-    <fieldset className="rounded-lg border border-slate-200 p-3">
+    <fieldset className="rounded-lg border border-line p-3">
       <legend className="px-1 text-sm font-semibold">
         <Badge tone="blue">{kind}</Badge>
       </legend>
@@ -151,7 +151,7 @@ function ConsentRow({ eventId, recipientId, opportunities }: { eventId: string; 
         {opportunities.map((o) => (
           <li key={o.id}>
             <span className="font-medium">{o.title}</span>
-            {o.topics.length > 0 && <span className="text-slate-600"> — {o.topics.join(', ')}</span>}
+            {o.topics.length > 0 && <span className="text-mute"> — {o.topics.join(', ')}</span>}
           </li>
         ))}
       </ul>
@@ -169,7 +169,7 @@ function ConsentRow({ eventId, recipientId, opportunities }: { eventId: string; 
         <Button size="sm" onClick={() => save.mutate()} disabled={save.isPending || !dirty}>
           {save.isPending ? 'Čuvanje…' : 'Sačuvaj saglasnost'}
         </Button>
-        <span className="text-xs text-slate-600" role="status">
+        <span className="text-xs text-mute" role="status">
           {current
             ? `Sačuvano: CV ${current.allow_cv ? 'da' : 'ne'}, pitanja ${current.allow_questions ? 'da' : 'ne'}`
             : 'Izbor još nije sačuvan u ovoj sesiji.'}

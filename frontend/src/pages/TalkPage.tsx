@@ -50,8 +50,8 @@ export function TalkPage() {
   return (
     <div className="space-y-3">
       <div>
-        <h1 className="text-xl font-bold sm:text-2xl">{talk?.title ?? 'Predavanje'}</h1>
-        {talk && <p className="text-slate-600">{talk.speaker_name}</p>}
+        <h1 className="text-2xl leading-tight tracking-tight sm:text-4xl">{talk?.title ?? 'Predavanje'}</h1>
+        {talk && <p className="text-mute">{talk.speaker_name}</p>}
       </div>
       {talks.isError && <ErrorAlert error={talks.error} onRetry={() => talks.refetch()} />}
 
@@ -92,7 +92,7 @@ export function TalkPage() {
         <div className="space-y-2">
           <Transcript segments={ws.snap.segments} lagMs={0} onSelectText={() => undefined} />
           {ws.snap.interim && (
-            <p className="rounded-lg bg-slate-50 px-4 py-2 text-lg text-slate-500 italic" aria-live="polite">
+            <p className="rounded-lg bg-raise px-4 py-2 text-lg text-faint italic" aria-live="polite">
               {ws.snap.interim}…
             </p>
           )}
@@ -102,7 +102,7 @@ export function TalkPage() {
       {selection && (
         <div className="fixed inset-x-0 bottom-24 z-20 flex justify-center px-4">
           <Button
-            className="max-w-full shadow-lg"
+            className="max-w-full shadow-[0_0_32px_rgb(255_210_94/0.4)]"
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => {
               setExplain({ term: selection.text, segmentId: selection.segmentId })

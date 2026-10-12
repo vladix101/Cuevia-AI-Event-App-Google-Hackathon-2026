@@ -27,7 +27,7 @@ export function OrganizerPage() {
       <h1 className="text-2xl font-bold">Organizator</h1>
 
       <Card title="Predavanja i zvanični izvor transkripta">
-        <p className="mb-3 text-sm text-slate-700">
+        <p className="mb-3 text-sm text-mute">
           Zvanični izvor je snimak koji backend koristi kao merodavan transkript (npr. za kontekst pitanja). Pokrenite snimanje na
           uređaju kod govornika i označite ga na stranici predavanja, ili unesite ID snimka ovde.
         </p>
@@ -44,7 +44,7 @@ export function OrganizerPage() {
       </Card>
 
       <Card title="Finalizacija preporuka">
-        <p className="mb-3 text-sm text-slate-700">
+        <p className="mb-3 text-sm text-mute">
           Zamrzava liste do pet preporučenih učesnika po prilici. Sponzori nakon toga vide samo profile sa saglasnošću.
         </p>
         {finalize.isSuccess ? (
@@ -92,10 +92,10 @@ function TranscriptSourceRow({ talk }: { talk: Talk }) {
   }
   const inputId = `src-${talk.id}`
   return (
-    <div className="rounded-lg border border-slate-200 p-3">
+    <div className="rounded-lg border border-line p-3">
       <div className="mb-2 flex flex-wrap items-center gap-2">
         <span className="font-medium">{talk.title}</span>
-        <span className="text-sm text-slate-600">{talk.speaker_name}</span>
+        <span className="text-sm text-mute">{talk.speaker_name}</span>
         {m.isSuccess && <Badge tone="green">Izvor podešen</Badge>}
       </div>
       <form onSubmit={submit} className="flex flex-wrap gap-2">
@@ -140,8 +140,8 @@ function MetricsView({ m }: { m: Metrics }) {
     <div className="space-y-6">
       <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {tiles.map(([label, value]) => (
-          <div key={label} className="rounded-lg bg-slate-50 p-3">
-            <dt className="text-sm text-slate-600">{label}</dt>
+          <div key={label} className="rounded-lg bg-raise p-3">
+            <dt className="text-sm text-mute">{label}</dt>
             <dd className="text-2xl font-semibold tabular-nums">{value.toLocaleString('sr-Latn')}</dd>
           </div>
         ))}
@@ -165,26 +165,26 @@ function CountChart({ title, rows, empty }: { title: string; rows: { label: stri
           <div style={{ height: Math.max(120, data.length * 32 + 30) }} aria-hidden>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data} layout="vertical" margin={{ top: 0, right: 16, bottom: 0, left: 0 }} barCategoryGap={4}>
-                <CartesianGrid horizontal={false} stroke="#e2e8f0" />
-                <XAxis type="number" allowDecimals={false} tick={{ fill: '#475569', fontSize: 12 }} axisLine={false} tickLine={false} />
-                <YAxis type="category" dataKey="label" width={120} tick={{ fill: '#334155', fontSize: 12 }} axisLine={false} tickLine={false} />
-                <Tooltip cursor={{ fill: '#f1f5f9' }} formatter={(v) => [v as number, 'Broj']} isAnimationActive={false} />
-                <Bar dataKey="count" fill="#1d5fd6" radius={[0, 4, 4, 0]} isAnimationActive={false} />
+                <CartesianGrid horizontal={false} stroke="#3b2847" />
+                <XAxis type="number" allowDecimals={false} tick={{ fill: '#a08dae', fontSize: 12 }} axisLine={false} tickLine={false} />
+                <YAxis type="category" dataKey="label" width={120} tick={{ fill: '#c4b4ce', fontSize: 12 }} axisLine={false} tickLine={false} />
+                <Tooltip cursor={{ fill: '#2c1c36' }} contentStyle={{ background: '#21142a', border: '1px solid #5a4268', color: '#f5ede3' }} formatter={(v) => [v as number, 'Broj']} isAnimationActive={false} />
+                <Bar dataKey="count" fill="#ffd25e" radius={[0, 4, 4, 0]} isAnimationActive={false} />
               </BarChart>
             </ResponsiveContainer>
           </div>
           <details className="mt-2 text-sm">
-            <summary className="cursor-pointer text-brand-700">Prikaži kao tabelu</summary>
+            <summary className="cursor-pointer text-spot">Prikaži kao tabelu</summary>
             <table className="mt-2 w-full text-left">
               <thead>
-                <tr className="border-b border-slate-200">
+                <tr className="border-b border-line">
                   <th className="py-1">Stavka</th>
                   <th className="py-1 text-right">Broj</th>
                 </tr>
               </thead>
               <tbody>
                 {data.map((r) => (
-                  <tr key={r.label} className="border-b border-slate-100">
+                  <tr key={r.label} className="border-b border-line">
                     <td className="py-1">{r.label}</td>
                     <td className="py-1 text-right tabular-nums">{r.count}</td>
                   </tr>

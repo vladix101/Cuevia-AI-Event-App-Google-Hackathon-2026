@@ -27,23 +27,23 @@ export function WebSpeechPanel({ transcriber }: { transcriber?: WebSpeechTranscr
 
   const listening = snap.status === 'listening'
   return (
-    <div className="space-y-2 rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
+    <div className="space-y-2 rounded-md border border-line bg-panel p-3">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="font-medium text-slate-800">Transkript u pregledaču</span>
+        <span className="font-medium text-ink">Transkript u pregledaču</span>
         <Badge tone="amber">Web Speech API · nije Gemma</Badge>
         {listening && (
-          <span className="flex items-center gap-1 text-sm text-red-800" role="status">
-            <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-red-600" aria-hidden /> Sluša
+          <span className="flex items-center gap-1 text-sm text-alarm" role="status">
+            <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-alarm" aria-hidden /> Sluša
           </span>
         )}
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        <label className="text-sm text-slate-700" htmlFor="ws-lang">
+        <label className="text-sm text-mute" htmlFor="ws-lang">
           Jezik
         </label>
         <select
           id="ws-lang"
-          className="rounded-md border border-slate-300 bg-white px-2 py-1 text-sm"
+          className="rounded-md border border-line-strong bg-panel px-2 py-1 text-sm"
           value={snap.lang}
           disabled={listening}
           onChange={(e) => t.setLang(e.target.value)}
@@ -70,7 +70,7 @@ export function WebSpeechPanel({ transcriber }: { transcriber?: WebSpeechTranscr
         )}
       </div>
       {snap.error && <Notice tone="warn">{snap.error}</Notice>}
-      <p className="text-xs text-slate-600">
+      <p className="text-xs text-mute">
         Govor prepoznaje sam pregledač (Chrome/Edge šalju zvuk svom servisu za prepoznavanje). Ovaj transkript ostaje na vašem uređaju i ne
         koristi se za ocenu pitanja.
       </p>

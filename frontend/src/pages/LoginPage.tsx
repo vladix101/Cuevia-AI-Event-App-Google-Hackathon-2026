@@ -33,15 +33,16 @@ export function LoginPage() {
   }
 
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col justify-center gap-4 p-4">
-      <div>
-        <h1 className="text-3xl font-bold text-brand-700">Cuevia</h1>
-        <p className="text-slate-700">Prati predavanje, sustigni propušteno, postavi pitanje govorniku.</p>
+    <main className="mx-auto flex min-h-dvh max-w-md flex-col justify-center gap-5 p-4">
+      <div className="space-y-3">
+        <span className="block h-5 w-5 rounded-full bg-spot shadow-[0_0_28px_rgb(255_210_94/0.8)]" aria-hidden />
+        <h1 className="text-6xl leading-[0.9] font-black tracking-tight [font-stretch:150%]">Cuevia</h1>
+        <p className="max-w-[34ch] text-lg text-mute">Prati predavanje, sustigni propušteno, postavi pitanje govorniku.</p>
       </div>
       {mocks && <Notice tone="warn">Razvojni režim: sintetička prijava, nijedan nalog nije stvaran.</Notice>}
       {loc.state?.expired && <Notice tone="warn">Sesija je istekla. Prijavite se ponovo.</Notice>}
       <Card>
-        <div role="tablist" aria-label="Način pristupa" className="mb-4 grid grid-cols-2 gap-1 rounded-lg bg-slate-100 p-1">
+        <div role="tablist" aria-label="Način pristupa" className="mb-4 grid grid-cols-2 gap-1 rounded bg-raise p-1">
           {(['login', 'register'] as const).map((m) => (
             <button
               key={m}
@@ -49,7 +50,7 @@ export function LoginPage() {
               type="button"
               aria-selected={mode === m}
               onClick={() => setMode(m)}
-              className={`min-h-10 rounded-md text-sm font-medium ${mode === m ? 'bg-white shadow-sm' : 'text-slate-700'}`}
+              className={`min-h-10 rounded-sm text-sm font-semibold transition-colors ${mode === m ? 'bg-spot text-stage' : 'text-mute hover:text-ink'}`}
             >
               {m === 'login' ? 'Prijava' : 'Registracija'}
             </button>
@@ -77,7 +78,7 @@ export function LoginPage() {
             />
           </Field>
           {error && (
-            <p role="alert" className="text-sm text-red-700">
+            <p role="alert" className="text-sm text-alarm">
               {error}
             </p>
           )}
@@ -103,7 +104,7 @@ export function LoginPage() {
           </Button>
         )}
       </Card>
-      <p className="text-xs text-slate-600">
+      <p className="text-xs text-mute">
         Nakon registracije možete (ali ne morate) da otpremite CV. Sve funkcije praćenja predavanja rade i bez njega.
       </p>
     </main>

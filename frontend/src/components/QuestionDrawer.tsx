@@ -90,7 +90,7 @@ export function QuestionDrawer({ talkId, open, onOpenChange }: { talkId: string;
             <label htmlFor={inputId} className="font-medium">
               Vaše pitanje
             </label>
-            <span aria-live="polite" className={exhausted ? 'font-semibold text-red-700' : 'text-slate-700'}>
+            <span aria-live="polite" className={exhausted ? 'font-semibold text-alarm' : 'text-mute'}>
               {q ? `${q.used}/${q.limit} pitanja` : '–/3 pitanja'}
             </span>
           </div>
@@ -98,7 +98,7 @@ export function QuestionDrawer({ talkId, open, onOpenChange }: { talkId: string;
             id={inputId}
             rows={3}
             maxLength={MAX_LEN}
-            className="block w-full resize-none rounded-lg border border-slate-300 p-3 text-base"
+            className="block w-full resize-none rounded-lg border border-line-strong p-3 text-base"
             value={c.text}
             onChange={(e) => c.setText(e.target.value)}
             onKeyDown={(e) => {
@@ -108,17 +108,17 @@ export function QuestionDrawer({ talkId, open, onOpenChange }: { talkId: string;
             placeholder={exhausted ? 'Nema preostalih pitanja za ovo predavanje.' : 'Napišite pitanje…'}
           />
           {c.notice && (
-            <p role="alert" className="text-sm text-amber-900">
+            <p role="alert" className="text-sm text-warn">
               {c.notice}
             </p>
           )}
           {failed && (
-            <p role="alert" className="text-sm text-red-700">
+            <p role="alert" className="text-sm text-alarm">
               Slanje nije uspelo ({errorText(c.mutation.error)}). Tekst je sačuvan — pokušajte ponovo; pitanje neće biti poslato dvaput.
             </p>
           )}
           <div className="flex items-center justify-between gap-2">
-            <span className="text-xs text-slate-600">{c.text.length}/{MAX_LEN}</span>
+            <span className="text-xs text-mute">{c.text.length}/{MAX_LEN}</span>
             <Button type="submit" disabled={!c.text.trim() || c.mutation.isPending || exhausted}>
               {c.mutation.isPending ? 'Slanje…' : failed ? 'Pošalji ponovo' : 'Pošalji'}
             </Button>
@@ -130,13 +130,13 @@ export function QuestionDrawer({ talkId, open, onOpenChange }: { talkId: string;
       {list.isError && <ErrorAlert error={list.error} onRetry={() => list.refetch()} />}
       {quota.isError && <ErrorAlert error={quota.error} onRetry={() => quota.refetch()} />}
       {list.data && list.data.length === 0 && (
-        <p className="text-center text-sm text-slate-600">Još niste postavili pitanje za ovo predavanje. Možete postaviti do 3.</p>
+        <p className="text-center text-sm text-mute">Još niste postavili pitanje za ovo predavanje. Možete postaviti do 3.</p>
       )}
       <ol className="space-y-3" aria-label="Vaša pitanja">
         {list.data?.map((qq) => (
-          <li key={qq.id} className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-brand-600 px-3 py-2 text-white">
+          <li key={qq.id} className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-spot px-3 py-2 text-stage">
             <p className="whitespace-pre-wrap break-words">{qq.text}</p>
-            <p className="mt-1 text-right text-xs text-brand-100">
+            <p className="mt-1 text-right text-xs text-stage/70">
               Sačuvano {fmtClock(qq.submitted_at)} · {qq.read_status === 'read' ? 'govornik je pročitao' : 'čeka govornika'}
             </p>
           </li>
@@ -154,7 +154,7 @@ export function QuestionFab({ onClick }: { onClick: () => void }) {
       onClick={onClick}
       aria-label="Postavi pitanje"
       title="Postavi pitanje"
-      className="fixed right-4 bottom-[max(1.25rem,env(safe-area-inset-bottom))] z-30 flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-2xl font-bold text-white shadow-lg hover:bg-brand-700"
+      className="fixed right-4 bottom-[max(1.25rem,env(safe-area-inset-bottom))] z-30 flex h-14 w-14 items-center justify-center rounded-full bg-spot text-2xl font-bold text-stage shadow-[0_0_32px_rgb(255_210_94/0.45)] hover:bg-spot-hot"
     >
       ?
     </button>

@@ -73,7 +73,7 @@ export function ExplanationDrawer({
           Objasni
         </Button>
       </form>
-      <div role="radiogroup" aria-label="Dubina objašnjenja" className="mt-3 grid grid-cols-3 gap-1 rounded-lg bg-slate-100 p-1">
+      <div role="radiogroup" aria-label="Dubina objašnjenja" className="mt-3 grid grid-cols-3 gap-1 rounded-lg bg-raise p-1">
         {DEPTHS.map((d) => (
           <button
             key={d.key}
@@ -81,13 +81,13 @@ export function ExplanationDrawer({
             role="radio"
             aria-checked={depth === d.key}
             onClick={() => setDepth(d.key)}
-            className={`min-h-10 rounded-md text-sm ${depth === d.key ? 'bg-white font-semibold shadow-sm' : 'text-slate-700'}`}
+            className={`min-h-10 rounded-md text-sm ${depth === d.key ? 'bg-spot font-semibold text-stage' : 'text-mute hover:text-ink'}`}
           >
             {d.label}
           </button>
         ))}
       </div>
-      {!segmentId && <p className="mt-3 text-sm text-slate-600">Objašnjenje zahteva bar jedan segment transkripta kao kontekst.</p>}
+      {!segmentId && <p className="mt-3 text-sm text-mute">Objašnjenje zahteva bar jedan segment transkripta kao kontekst.</p>}
       <div className="mt-4" aria-live="polite">
         {q.isFetching && <Spinner label="Pripremam objašnjenje…" />}
         {q.isError && <ErrorAlert error={q.error} onRetry={() => q.refetch()} />}
@@ -97,8 +97,8 @@ export function ExplanationDrawer({
             <h3 className="text-lg font-semibold">{term}</h3>
             <p className="leading-relaxed whitespace-pre-wrap">{q.data.explanation}</p>
             {q.data.example && (
-              <div className="rounded-lg bg-slate-50 p-3">
-                <h4 className="text-sm font-medium text-slate-700">Primer</h4>
+              <div className="rounded-lg bg-raise p-3">
+                <h4 className="text-sm font-medium text-mute">Primer</h4>
                 <p className="whitespace-pre-wrap">{q.data.example}</p>
               </div>
             )}
@@ -114,7 +114,7 @@ export function ExplanationDrawer({
                 </ul>
               </div>
             ) : (
-              <p className="text-sm text-slate-600">Nema izvora za ovo objašnjenje. Proverite ključne tvrdnje samostalno.</p>
+              <p className="text-sm text-mute">Nema izvora za ovo objašnjenje. Proverite ključne tvrdnje samostalno.</p>
             )}
           </article>
         )}

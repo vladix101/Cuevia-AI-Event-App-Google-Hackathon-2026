@@ -30,12 +30,12 @@ export function SponsorPage() {
         {opps.data?.length === 0 && <EmptyState>Još nema prilika.</EmptyState>}
         <ul className="space-y-2">
           {opps.data?.map((o) => (
-            <li key={o.id} className="rounded-lg border border-slate-200 p-3">
+            <li key={o.id} className="rounded-lg border border-line p-3">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-medium">{o.title}</span>
                 <Badge tone="blue">{o.recipient_kind === 'sponsor' ? 'Sponzor' : 'Grupa'}</Badge>
               </div>
-              {o.topics.length > 0 && <p className="text-sm text-slate-600">{o.topics.join(', ')}</p>}
+              {o.topics.length > 0 && <p className="text-sm text-mute">{o.topics.join(', ')}</p>}
             </li>
           ))}
         </ul>
@@ -60,10 +60,10 @@ export function SponsorPage() {
                   type="button"
                   aria-pressed={selected === r.participant_id}
                   onClick={() => setSelected(r.participant_id)}
-                  className={`w-full rounded-lg border p-3 text-left ${selected === r.participant_id ? 'border-brand-600 bg-brand-50' : 'border-slate-200 hover:bg-slate-50'}`}
+                  className={`w-full rounded-lg border p-3 text-left ${selected === r.participant_id ? 'border-spot bg-spot/10' : 'border-line hover:bg-raise'}`}
                 >
                   <span className="font-medium">{r.display_name}</span>
-                  <span className="block text-sm text-slate-600">{r.interests.map((i) => i.topic).slice(0, 4).join(', ')}</span>
+                  <span className="block text-sm text-mute">{r.interests.map((i) => i.topic).slice(0, 4).join(', ')}</span>
                 </button>
               </li>
             ))}
@@ -95,7 +95,7 @@ function NewOpportunity({ eventId }: { eventId: string }) {
     if (title.trim()) m.mutate()
   }
   return (
-    <form onSubmit={submit} className="mt-4 space-y-3 border-t border-slate-200 pt-4">
+    <form onSubmit={submit} className="mt-4 space-y-3 border-t border-line pt-4">
       <h3 className="font-semibold">Nova prilika</h3>
       <Field label="Naziv" htmlFor="opp-title">
         <input id="opp-title" className={inputClass} value={title} onChange={(e) => setTitle(e.target.value)} required maxLength={120} />
@@ -109,7 +109,7 @@ function NewOpportunity({ eventId }: { eventId: string }) {
       <Button type="submit" disabled={m.isPending || !title.trim()}>
         {m.isPending ? 'Čuvanje…' : 'Objavi priliku'}
       </Button>
-      {m.isSuccess && <p role="status" className="text-sm text-green-800">Prilika je objavljena.</p>}
+      {m.isSuccess && <p role="status" className="text-sm text-ok">Prilika je objavljena.</p>}
       {m.isError && <ErrorAlert error={m.error} />}
     </form>
   )
@@ -132,7 +132,7 @@ function RecommendationDetail({ eventId, rec }: { eventId: string; rec: Recommen
     },
   })
   return (
-    <article className="space-y-3 rounded-lg border border-slate-200 p-3" aria-label={`Detalji: ${rec.display_name}`}>
+    <article className="space-y-3 rounded-lg border border-line p-3" aria-label={`Detalji: ${rec.display_name}`}>
       <h3 className="text-lg font-semibold">{rec.display_name}</h3>
       {rec.interests.length > 0 && (
         <ul className="flex flex-wrap gap-1">
@@ -156,13 +156,13 @@ function RecommendationDetail({ eventId, rec }: { eventId: string; rec: Recommen
       <div>
         <h4 className="text-sm font-medium">Podeljena pitanja</h4>
         {rec.questions.length === 0 ? (
-          <p className="text-sm text-slate-600">Učesnik nije podelio pitanja.</p>
+          <p className="text-sm text-mute">Učesnik nije podelio pitanja.</p>
         ) : (
           <ul className="space-y-2">
             {rec.questions.map((q) => (
-              <li key={q.id} className="rounded bg-slate-50 p-2 text-sm">
+              <li key={q.id} className="rounded bg-raise p-2 text-sm">
                 <p className="whitespace-pre-wrap break-words">{q.text}</p>
-                <p className="text-xs text-slate-500">{fmtClock(q.submitted_at)}</p>
+                <p className="text-xs text-faint">{fmtClock(q.submitted_at)}</p>
               </li>
             ))}
           </ul>
@@ -173,7 +173,7 @@ function RecommendationDetail({ eventId, rec }: { eventId: string; rec: Recommen
           {download.isPending ? 'Preuzimanje…' : 'Preuzmi CV'}
         </Button>
       ) : (
-        <p className="text-sm text-slate-600">CV nije podeljen sa vama.</p>
+        <p className="text-sm text-mute">CV nije podeljen sa vama.</p>
       )}
       {download.isError && <ErrorAlert error={download.error} />}
     </article>

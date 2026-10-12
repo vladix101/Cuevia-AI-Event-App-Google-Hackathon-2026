@@ -49,7 +49,7 @@ export function CatchUpDrawer({
           {RANGES.map((r) => (
             <label
               key={r.key}
-              className={`flex min-h-11 cursor-pointer items-center justify-center rounded-lg border text-sm has-[:focus-visible]:outline has-[:focus-visible]:outline-brand-600 ${range === r.key ? 'border-brand-600 bg-brand-50 font-semibold' : 'border-slate-300'}`}
+              className={`flex min-h-11 cursor-pointer items-center justify-center rounded-lg border text-sm has-[:focus-visible]:outline has-[:focus-visible]:outline-spot ${range === r.key ? 'border-spot bg-spot/10 font-semibold' : 'border-line-strong'}`}
             >
               <input type="radio" name="catchup-range" value={r.key} checked={range === r.key} onChange={() => setRange(r.key)} className="sr-only" />
               {r.label}
@@ -67,7 +67,7 @@ export function CatchUpDrawer({
       )}
       {m.data && (
         <article className="mt-4 space-y-3" aria-live="polite">
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-mute">
             {fmtMs(m.data.start_ms)}–{fmtMs(m.data.end_ms)}
           </p>
           <p className="text-lg font-semibold">{m.data.cue}</p>

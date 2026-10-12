@@ -44,7 +44,7 @@ bootstrap().then(
     root.render(
       <main className="mx-auto max-w-lg p-6">
         <h1 className="text-xl font-semibold">Cuevia nije podešena</h1>
-        <p className="mt-2 text-slate-700">{e instanceof Error ? e.message : String(e)}</p>
+        <p className="mt-2 text-mute">{e instanceof Error ? e.message : String(e)}</p>
       </main>,
     ),
 )

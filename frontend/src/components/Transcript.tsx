@@ -89,43 +89,55 @@ export const Transcript = forwardRef<
   }, [])
 
   const sliderValue = followLive ? last : Math.min(viewIndex, last)
+  // Surtitle effect: while following live, the newest spoken line is lit and the rest dim.
+  const liveId = followLive ? [...segments].reverse().find((s) => s.status !== 'gap')?.id : undefined
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white shadow-sm">
+    <div className="overflow-hidden rounded-md border border-line bg-panel">
       <div
         ref={scroller}
         onScroll={onScroll}
-        className="h-[52dvh] overflow-y-auto p-4"
+        className="h-[56dvh] overflow-y-auto px-4 py-5 sm:px-6"
         role="log"
         aria-live={followLive ? 'polite' : 'off'}
         aria-label="Transkript"
         tabIndex={0}
       >
         {segments.length === 0 && (
-          <p className="text-slate-600">Transkript će se pojaviti nekoliko sekundi nakon početka snimanja.</p>
+          <p className="text-mute">Transkript će se pojaviti nekoliko sekundi nakon početka snimanja.</p>
         )}
-        <ol className="space-y-3">
+        <ol className="space-y-4">
           {segments.map((s) =>
             s.status === 'gap' ? (
-              <li key={s.sequence} data-segment-id={s.id} className="text-center text-sm text-slate-500 italic">
+              <li key={s.sequence} data-segment-id={s.id} className="text-center text-sm text-faint italic">
                 — prekid u transkriptu {fmtMs(s.start_ms)}–{fmtMs(s.end_ms)} —
               </li>
             ) : (
               <li
                 key={s.sequence}
                 data-segment-id={s.id}
-                className={`grid grid-cols-[3.5rem_1fr] gap-2 rounded ${highlight === s.id ? 'bg-amber-100' : ''}`}
+                className={`grid grid-cols-[3.25rem_1fr] gap-3 border-l-2 py-1 pl-2 transition-colors ${highlight === s.id ? 'border-spot bg-spot/10' : 'border-transparent'}`}
               >
-                <time className="pt-1 font-mono text-xs text-slate-500" dateTime={`PT${Math.floor(s.start_ms / 1000)}S`}>
+                <time className="pt-1.5 text-xs text-faint tabular-nums" dateTime={`PT${Math.floor(s.start_ms / 1000)}S`}>
                   {fmtMs(s.start_ms)}
                 </time>
-                <p className="text-lg leading-relaxed text-slate-900 select-text">{s.text}</p>
+                <p
+                  className={`select-text transition-colors duration-500 ${
+                    s.id === liveId
+                      ? 'text-2xl leading-snug font-bold text-ink sm:text-3xl'
+                      : liveId
+                        ? 'text-lg leading-relaxed text-mute'
+                        : 'text-lg leading-relaxed text-ink'
+                  }`}
+                >
+                  {s.text}
+                </p>
               </li>
             ),
           )}
         </ol>
       </div>
-      <div className="flex flex-wrap items-center gap-3 border-t border-slate-200 p-3">
+      <div className="flex flex-wrap items-center gap-3 border-t border-line p-3">
         <Slider.Root
           className="relative flex h-6 min-w-40 flex-1 touch-none items-center select-none"
           min={0}
@@ -141,11 +153,11 @@ export const Transcript = forwardRef<
           }}
           aria-label="Istorija transkripta"
         >
-          <Slider.Track className="relative h-1.5 flex-1 rounded-full bg-slate-200">
-            <Slider.Range className="absolute h-full rounded-full bg-brand-600" />
+          <Slider.Track className="relative h-1.5 flex-1 rounded-full bg-line">
+            <Slider.Range className="absolute h-full rounded-full bg-spot" />
           </Slider.Track>
           <Slider.Thumb
-            className="block h-5 w-5 rounded-full border-2 border-brand-600 bg-white shadow"
+            className="block h-5 w-5 rounded-full bg-spot shadow-[0_0_12px_rgb(255_210_94/0.6)]"
             aria-valuetext={segments[sliderValue] ? fmtMs(segments[sliderValue].start_ms) : 'nema segmenata'}
           />
         </Slider.Root>
@@ -160,9 +172,12 @@ export const Transcript = forwardRef<
             Vrati se uživo ↓
           </Button>
         ) : (
-          <span className="text-xs text-slate-600">Prati uživo</span>
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-spot">
+            <span className="h-1.5 w-1.5 rounded-full bg-spot" aria-hidden />
+            Prati uživo
+          </span>
         )}
-        {lagMs > 0 && <span className="text-xs text-slate-600">kašnjenje obrade ~{Math.round(lagMs / 1000)} s</span>}
+        {lagMs > 0 && <span className="text-xs text-mute">kašnjenje obrade ~{Math.round(lagMs / 1000)} s</span>}
       </div>
     </div>
   )

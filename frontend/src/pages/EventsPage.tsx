@@ -21,7 +21,7 @@ export function EventsPage() {
   const items = events.data?.pages.flatMap((p) => p.items) ?? []
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold">Događaji</h1>
+      <h1 className="text-4xl tracking-tight [font-stretch:130%]">Događaji</h1>
       {events.isPending && <Spinner />}
       {events.isError && <ErrorAlert error={events.error} onRetry={() => events.refetch()} />}
       {events.isSuccess && items.length === 0 && <EmptyState>Trenutno nema dostupnih događaja.</EmptyState>}
@@ -30,7 +30,7 @@ export function EventsPage() {
           <li key={e.id}>
             <Card>
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <h2 className="text-lg font-semibold">{e.title}</h2>
+                <h2 className="text-2xl leading-tight">{e.title}</h2>
                 <div className="flex gap-2">
                   <Button variant="secondary" onClick={() => nav(`/events/${e.id}`)}>
                     Otvori

@@ -46,14 +46,14 @@ export function SpeakerPage() {
       {markRead.isError && <ErrorAlert error={markRead.error} />}
       {[...groups.entries()].map(([talkId, list]) => (
         <Card key={talkId} title={titleOf(talkId)} actions={<Badge>{list.length}</Badge>}>
-          <ol className="divide-y divide-slate-100">
+          <ol className="divide-y divide-line">
             {[...list]
               .sort((a, b) => a.submitted_at.localeCompare(b.submitted_at))
               .map((q) => (
                 <li key={q.id} className="flex flex-col gap-2 py-3 sm:flex-row sm:items-start sm:justify-between">
                   <div>
-                    <p className={`whitespace-pre-wrap break-words ${q.read_status === 'unread' ? 'font-medium' : 'text-slate-600'}`}>{q.text}</p>
-                    <p className="text-xs text-slate-500">{fmtClock(q.submitted_at)}</p>
+                    <p className={`whitespace-pre-wrap break-words ${q.read_status === 'unread' ? 'font-medium' : 'text-mute'}`}>{q.text}</p>
+                    <p className="text-xs text-faint">{fmtClock(q.submitted_at)}</p>
                   </div>
                   {q.read_status === 'unread' ? (
                     <Button
